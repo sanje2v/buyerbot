@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "buyerbot",
+  "version": "1.0",
+  "description": "Buyer bot for bestbuy.com",
+  "icons": 
+        {
+        "48": "icon.jpg"
+        },
+   
+   "content_scripts": 
+        [
+            {
+                "matches": ["https://www.bestbuy.com/site/gigabyte-nvidia-geforce-rtx-3080-ti-vision-oc-12gb-gddr6x-pci-express-4-0-graphics-card/*"],
+                "js": ["jquery-3.6.0.min.js", "doBuy.js"]
+            },
+            {
+                "matches": ["https://www.bestbuy.com/cart"],
+                "js": ["jquery-3.6.0.min.js", "doHandleCart.js"]
+            },
+			{
+				"matches": ["https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout*"],
+				"js": ["jquery-3.6.0.min.js", "doPayPalCheckout.js"]
+			},
+			{
+				"matches": ["https://www.bestbuy.com/checkout/r/fast-track*"],
+				"js": ["jquery-3.6.0.min.js", "doFinalCheckout.js"]
+			}
+        ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';",
+    "permissions": ["*://www.bestbuy.com/*", "*://www.paypal.com/*", "*://api.simplepush.io/*", "tabs", "activeTab", "browsingData", "find", "identity", "sessions", "webNavigation", "webRequest", "webRequestBlocking"]
+}
